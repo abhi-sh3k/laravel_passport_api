@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
     // Register API (post)
     public function register(Request $request) {
+
         // Data Validation
         $request->validate([
             "name" => "required",
@@ -33,6 +35,36 @@ class ApiController extends Controller
 
     //  Login API (post)
     public function login(Request $request) {
+
+        // Data Validation
+        $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+
+        //  Check User login
+        if(Auth::attempt([
+            "email" => $request->email,
+            "password" => $request->password
+        ])) {
+
+            // User Exist
+            $user = Auth::user();
+
+            $token = $user->createToken("myToken")->accessToken;
+
+            return response()->json([
+                "status" => true,
+                "message" => "Login Successfull",
+                "data" => [$token, $user]
+            ]);
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "Invalid login details"
+            ]);
+        }
 
     }
 
