@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\api\ForgotPassword;
 use App\Http\Requests\api\PasswordReset as PasswordResetRequest;
 use App\Http\Requests\api\UpdatePassword;
+use App\Http\Requests\api\UpdateProfile;
 use App\Models\api\PasswordReset;
 use Exception;
 use Illuminate\Http\Request;
@@ -184,5 +185,20 @@ class ApiController extends Controller
                 "message" => "Incorrect old password"
             ], 400);
         }
+    }
+
+    // Update Profile API (post)
+    public function updateProfile(UpdateProfile $updateProfile) {
+
+        $user = Auth::user();
+
+        $user->name = $updateProfile->name;
+        $user->email = $updateProfile->email;
+        $user->save();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile updated successfully"
+        ], 200);
     }
 }

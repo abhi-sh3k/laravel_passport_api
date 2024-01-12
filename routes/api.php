@@ -34,4 +34,5 @@ Route::group([
     Route::get("profile", [ApiController::class, "profile"]);
     Route::get("logout", [ApiController::class, "logout"]);
     Route::post("update-password", [ApiController::class, "updatePassword"]);
+    Route::post("update-profile", [ApiController::class, "updateProfile"]);
 });
