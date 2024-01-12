@@ -84,5 +84,11 @@ class ApiController extends Controller
     //  Logout API (get)
     public function logout() {
 
+        auth()->user()->token()->revoke();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Logout Successfull"
+        ]);
     }
 }
