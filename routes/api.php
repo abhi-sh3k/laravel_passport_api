@@ -27,7 +27,7 @@ Route::post("login", [ApiController::class, "login"]);
 
 // Protected routes
 Route::group([
-    "middleware" => ["auth::api"]
+    "middleware" => ["auth:api"]
 ], function () {
     Route::get("profile", [ApiController::class, "profile"]);
     Route::get("logout", [ApiController::class, "logout"]);

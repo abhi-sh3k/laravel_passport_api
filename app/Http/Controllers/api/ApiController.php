@@ -71,6 +71,14 @@ class ApiController extends Controller
     // Profile API (get)
     public function profile() {
 
+        $user = Auth::user();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile Information",
+            "data" => [$user]
+        ]);
+
     }
 
     //  Logout API (get)
