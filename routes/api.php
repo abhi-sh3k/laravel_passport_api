@@ -24,6 +24,8 @@ use App\Http\Controllers\api\ApiController;
 //  Public routes
 Route::post("register", [ApiController::class, "register"]);
 Route::post("login", [ApiController::class, "login"]);
+Route::post("forgot-password", [ApiController::class, "forgotPassword"]);
+Route::post("reset", [ApiController::class, "resetPassword"]);
 
 // Protected routes
 Route::group([
@@ -31,4 +33,5 @@ Route::group([
 ], function () {
     Route::get("profile", [ApiController::class, "profile"]);
     Route::get("logout", [ApiController::class, "logout"]);
+    Route::post("update-password", [ApiController::class, "updatePassword"]);
 });
